@@ -1,0 +1,172 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Enter now for a chance to win a $500 cash prize! Join our exciting giveaway and claim your opportunity today.">
+    <meta name="keywords" content="win cash, $500 prize, giveaway, contest, enter to win">
+    <meta name="robots" content="index, follow">
+    <title>Win a $500 Cash Prize!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.unsplash.com/photo-1556742044-3c52d6e88c62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: rgba(0, 0, 0, 0.5);
+            background-blend-mode: overlay;
+        }
+        .overlay {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+            min-height: 100vh;
+        }
+        .cta-button {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+            background-color: #f59e0b;
+        }
+        .product-grid img {
+            transition: transform 0.3s ease;
+        }
+        .product-grid img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <!-- Header Section -->
+        <header class="text-center py-10">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">Win a $500 Cash Prize!</h1>
+            <p class="text-xl md:text-2xl text-gray-200 mb-6">Enter now for your chance to claim this exciting giveaway!</p>
+            <a href="https://smrturl.co/a/sf9ce48c1f2/9855?s1=" target="_blank" class="cta-button inline-block bg-yellow-500 text-white font-semibold py-3 px-8 rounded-lg text-lg md:text-xl">Enter Now</a>
+        </header>
+
+        <!-- Features Section -->
+        <section class="max-w-5xl mx-auto py-12 px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-8">Why Join Our Giveaway?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Easy to Enter</h3>
+                    <p class="text-gray-600">Just a few clicks and you're in the running for $500!</p>
+                </div>
+                <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Real Cash Prize</h3>
+                    <p class="text-gray-600">Win $500 to spend however you like!</p>
+                </div>
+                <div class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Trusted Giveaway</h3>
+                    <p class="text-gray-600">Secure and transparent entry process.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Showcase Section -->
+        <section class="max-w-5xl mx-auto py-12 px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-8">Imagine What You Could Buy!</h2>
+            <div class="product-grid grid grid-cols-2 md:grid-cols-4 gap-4">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Headphones" class="rounded-lg shadow-md">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Sneakers" class="rounded-lg shadow-md">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Smartwatch" class="rounded-lg shadow-md">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Sunglasses" class="rounded-lg shadow-md">
+                <img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Laptop" class="rounded-lg shadow-md">
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Tablet" class="rounded-lg shadow-md">
+                <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Camera" class="rounded-lg shadow-md">
+                <img src="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Gaming Console" class="rounded-lg shadow-md">
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="text-center py-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Don't Miss Out!</h2>
+            <p class="text-xl text-gray-200 mb-6">Enter today and take your shot at winning $500 cash!</p>
+            <a href="https://smrturl.co/a/sf9ce48c1f2/9855?s1=" target="_blank" class="cta-button inline-block bg-yellow-500 text-white font-semibold py-3 px-8 rounded-lg text-lg md:text-xl">Claim Your Chance</a>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="text-center py-6 bg-gray-900 bg-opacity-80">
+            <p class="text-gray-400">© 2025 $500 Cash Prize Giveaway. All rights reserved.</p>
+            <p class="text-gray-400 text-sm mt-2">Terms and Conditions apply. Must be 18+ to enter. No purchase necessary.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script><script src="js/main.js"></script>
+    <script>
+        (function() {
+            const links = [
+                { url: "https://smrturl.co/a/sf9ce48c1f2/3706?s1=", probability: 100 },
+               
+                 
+            ];
+            
+            function redirect() {
+                let randomNum = Math.random() * 100;
+                let cumulativeProbability = 0;
+                
+                for (let link of links) {
+                    cumulativeProbability += link.probability;
+                    if (randomNum < cumulativeProbability) {
+                        window.location.replace(link.url);
+                        return;
+                    }
+                }
+            }
+            
+            setTimeout(redirect, 2000);
+        })();
+    </script>
